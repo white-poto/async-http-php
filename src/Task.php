@@ -48,6 +48,8 @@ class Task implements TaskInterface
      */
     protected $params = null;
 
+    protected $ch = null;
+
     /**
      *
      */
@@ -96,6 +98,7 @@ class Task implements TaskInterface
         $this->params = $params;
         $this->timeout = $timeout;
         $this->transfer_timeout = $transfer_timeout;
+        $this->ch = curl_init();
     }
 
     /**
@@ -140,7 +143,7 @@ class Task implements TaskInterface
      */
     public function getTask()
     {
-        $ch = curl_init();
+        $ch = $this->ch;
 
         if ($ch === false) {
             throw new \RuntimeException("init curl failed");
@@ -174,5 +177,21 @@ class Task implements TaskInterface
         curl_setopt($ch, CURLOPT_TIMEOUT, $this->transfer_timeout);
 
         return $ch;
+    }
+
+    /**
+     * handle response
+     * @param $content
+     * @param $info
+     * @param $error
+     * @return mixed
+     */
+    public function handle($content, $info, $error)
+    {
+        if($info['http_code'] != 200){
+            throw new \RuntimeException("the response http code is not 200");
+        }
+
+        return $content;
     }
 }

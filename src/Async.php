@@ -17,6 +17,8 @@ class Async
      */
     protected $curl;
 
+    protected $tasks = array();
+
     /**
      * callback function
      * @var array
@@ -45,6 +47,7 @@ class Async
      */
     public function attach(Task $task)
     {
+        $this->tasks[] = $task;
         curl_multi_add_handle($this->curl, $task->getTask());
     }
 
@@ -83,9 +86,14 @@ class Async
                 $error = curl_error($done['handle']);
                 $content = curl_multi_getcontent($done['handle']);
 
-                if (is_null($callback) || !is_callable($callback)) {
-                    $result = call_user_func(array($this, 'defaultCallback'), $content, $info, $error);
-                } else {
+                $callback = null;
+                foreach($this->tasks as $task){
+                    if($done['handle'] == $task->getTask() && method_exists($task, "handle")){
+                        $callback = array($task, "handle");
+                    }
+                }
+
+                if (!is_null($callback) && is_callable($callback)) {
                     $result = call_user_func($callback, $content, $info, $error);
                 }
 

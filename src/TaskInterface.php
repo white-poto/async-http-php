@@ -16,4 +16,13 @@ interface TaskInterface
      * @return resource curl
      */
     public function getTask();
+
+    /**
+     * handle response
+     * @param $content
+     * @param $info
+     * @param $error
+     * @return mixed
+     */
+    public function handle($content, $info, $error);
 }

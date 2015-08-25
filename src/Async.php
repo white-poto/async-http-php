@@ -40,7 +40,12 @@ class Async
 
     public function isDone()
     {
-        return curl_multi_exec($this->curl, $active) != CURLM_CALL_MULTI_PERFORM;
+        $code = curl_multi_exec($this->curl, $active);
+        if($code != CURLM_CALL_MULTI_PERFORM && $code == CURLM_OK && $active == 0){
+            return true;
+        }
+
+        return false;
     }
 
     public function execute()

@@ -155,12 +155,12 @@ class Task implements TaskInterface
         }
 
         $url = $this->url;
-        if ($this->method == self::METHOD_GET && !is_null($this->params) && !empty($this->params)) {
+        if ($this->method == self::METHOD_GET && (is_array($this->params) || is_object($this->params))) {
             $url .= http_build_query($this->params);
         }
         if ($this->method == self::METHOD_POST && !is_null($this->params)) {
             curl_setopt($ch, CURLOPT_POST, 1);
-            if (is_array($this->params)) {
+            if (is_array($this->params) || is_object($this->params)) {
                 $post_field = http_build_query($this->params);
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $post_field);
             } else {

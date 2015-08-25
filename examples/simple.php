@@ -12,6 +12,11 @@ $async = new \Jenner\Http\Async();
 $task = \Jenner\Http\Task::createGet("http://www.baidu.com");
 $async->attach($task);
 
+$task2 = \Jenner\Http\Task::createGet("http://www.google.com");
+$async->attach($task);
+
+$task3 = \Jenner\Http\Task::createGet("http://www.facebook.com");
+$async->attach($task3);
 
 while (true) {
     if ($async->isDone()) {

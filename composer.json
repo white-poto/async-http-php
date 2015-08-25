@@ -1,0 +1,30 @@
+{
+  "name": "jenner/async-http-php",
+  "description": "php http async client",
+  "keywords": [
+    "http client",
+    "php",
+    "async"
+  ],
+  "version": "v0.1",
+  "authors": [
+    {
+      "name": "Jenner",
+      "email": "hypxm@qq.com"
+    }
+  ],
+  "license": "MIT",
+  "type": "package",
+  "require": {
+    "php": ">=5.3.0",
+    "ext-mysqli": "*"
+  },
+  "require-dev":{
+    "jenner/timer": "v0.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Jenner\\Http\\": "./src"
+    }
+  }
+}

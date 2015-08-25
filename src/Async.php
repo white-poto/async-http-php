@@ -20,12 +20,6 @@ class Async
     protected $tasks = array();
 
     /**
-     * callback function
-     * @var array
-     */
-    protected $callback;
-
-    /**
      * @param null $callback
      */
     public function __construct($callback = null)
@@ -74,7 +68,7 @@ class Async
     public function execute()
     {
         $responses = array();
-        $callback = $this->callback;
+
         do {
             while (($code = curl_multi_exec($this->curl, $active)) == CURLM_CALL_MULTI_PERFORM) ;
 
@@ -90,7 +84,7 @@ class Async
                 $error = curl_error($done['handle']);
                 $content = curl_multi_getcontent($done['handle']);
 
-                $callback = null;
+                $callback = $task_name = null;
                 foreach($this->tasks as $task_name=>$task){
                     if($done['handle'] == $task->getTask() && method_exists($task, "handle")){
                         $callback = array($task, "handle");
@@ -121,14 +115,4 @@ class Async
         return $responses;
     }
 
-    /**
-     * @param $content
-     * @param $info
-     * @param $error
-     * @return mixed
-     */
-    public function defaultCallback($content, $info, $error)
-    {
-        return $content;
-    }
 }

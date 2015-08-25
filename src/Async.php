@@ -11,14 +11,21 @@ namespace Jenner\Http;
 
 class Async
 {
+    /**
+     * multi-curl resource
+     * @var resource
+     */
     protected $curl;
 
+    /**
+     * callback function
+     * @var array
+     */
     protected $callback;
 
-    const METHOD_POST = "post";
-
-    const METHOD_GET = "GET";
-
+    /**
+     * @param null $callback
+     */
     public function __construct($callback = null)
     {
         $this->curl = curl_multi_init();
@@ -26,28 +33,37 @@ class Async
             throw new \RuntimeException("curl resource init failed");
         }
 
-        if(!is_null($callback)){
+        if (!is_null($callback)) {
             $this->callback = $callback;
-        }else{
+        } else {
             $this->callback = array($this, "defaultCallback");
         }
     }
 
+    /**
+     * @param Task $task
+     */
     public function attach(Task $task)
     {
         curl_multi_add_handle($this->curl, $task->getTask());
     }
 
+    /**
+     * @return bool
+     */
     public function isDone()
     {
         $code = curl_multi_exec($this->curl, $active);
-        if($code != CURLM_CALL_MULTI_PERFORM && $code == CURLM_OK && $active == 0){
+        if ($code != CURLM_CALL_MULTI_PERFORM && $code == CURLM_OK && $active == 0) {
             return true;
         }
 
         return false;
     }
 
+    /**
+     * @return array
+     */
     public function execute()
     {
         $responses = array();
@@ -92,6 +108,12 @@ class Async
         return $responses;
     }
 
+    /**
+     * @param $content
+     * @param $info
+     * @param $error
+     * @return mixed
+     */
     public function defaultCallback($content, $info, $error)
     {
         return $content;

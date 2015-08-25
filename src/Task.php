@@ -11,34 +11,84 @@ namespace Jenner\Http;
 
 class Task implements TaskInterface
 {
+    /**
+     * request method
+     * @var string
+     */
     protected $method;
 
+    /**
+     * @var
+     */
     protected $url;
 
+    /**
+     * @var null
+     */
     protected $proxy_ip = null;
 
+    /**
+     * @var null
+     */
     protected $proxy_port = null;
 
+    /**
+     * @var int
+     */
     protected $timeout = 10;
 
+    /**
+     * @var int
+     */
     protected $transfer_timeout = 600;
 
+    /**
+     * request params
+     * @var null
+     */
     protected $params = null;
 
+    /**
+     *
+     */
     const METHOD_POST = "post";
 
+    /**
+     *
+     */
     const METHOD_GET = "get";
 
+    /**
+     * @param $url
+     * @param null $params
+     * @param int $timeout
+     * @param int $transfer_timeout
+     * @return Task
+     */
     public static function createGet($url, $params = null, $timeout = 10, $transfer_timeout = 600)
     {
         return new Task(self::METHOD_GET, $url, $params, $timeout, $transfer_timeout);
     }
 
+    /**
+     * @param $url
+     * @param null $params
+     * @param int $timeout
+     * @param int $transfer_timeout
+     * @return Task
+     */
     public static function createPost($url, $params = null, $timeout = 10, $transfer_timeout = 600)
     {
         return new Task(self::METHOD_POST, $url, $params, $timeout, $transfer_timeout);
     }
 
+    /**
+     * @param string $method
+     * @param $url
+     * @param null $params
+     * @param int $timeout
+     * @param int $transfer_timeout
+     */
     protected function __construct($method = Task::METHOD_GET, $url, $params = null, $timeout = 10, $transfer_timeout = 600)
     {
         $this->method = $method;
@@ -48,23 +98,37 @@ class Task implements TaskInterface
         $this->transfer_timeout = $transfer_timeout;
     }
 
+    /**
+     * @param $host
+     * @param $port
+     */
     public function setProxy($host, $port)
     {
         $this->proxy_ip = $host;
         $this->proxy_port = $port;
     }
 
+    /**
+     * @param int $timeout
+     * @param $transfer_timeout
+     */
     public function setTimeout($timeout = 10, $transfer_timeout)
     {
         $this->timeout = $timeout;
         $this->transfer_timeout = $transfer_timeout;
     }
 
+    /**
+     * @param int $transfer_timeout
+     */
     public function setTransferTimeout($transfer_timeout = 600)
     {
         $this->transfer_timeout = $transfer_timeout;
     }
 
+    /**
+     * @param null $params
+     */
     public function setParams($params = null)
     {
         $this->params = $params;

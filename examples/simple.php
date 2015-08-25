@@ -13,10 +13,10 @@ $task = \Jenner\Http\Task::createGet("http://www.baidu.com");
 $async->attach($task);
 
 
-while(true){
-    if($async->isDone()){
+while (true) {
+    if ($async->isDone()) {
         break;
-    }else{
+    } else {
         echo "wait" . PHP_EOL;
     }
     usleep(100);

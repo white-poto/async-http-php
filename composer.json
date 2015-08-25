@@ -19,7 +19,7 @@
     "php": ">=5.3.0",
     "ext-mysqli": "*"
   },
-  "require-dev":{
+  "require-dev": {
     "jenner/timer": "v0.1"
   },
   "autoload": {

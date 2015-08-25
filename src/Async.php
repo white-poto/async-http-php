@@ -42,7 +42,9 @@ class Async
      */
     public function attach(Task $task, $task_name = null)
     {
-
+        if(is_null($task_name)){
+            $task_name = count($this->tasks);
+        }
         $this->tasks[$task_name] = $task;
         curl_multi_add_handle($this->curl, $task->getTask());
     }

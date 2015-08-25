@@ -13,7 +13,7 @@ $task = \Jenner\Http\Task::createGet("http://www.baidu.com");
 $async->attach($task, "baidu");
 
 $task2 = \Jenner\Http\Task::createGet("http://www.google.com");
-$async->attach($task, "google");
+$async->attach($task2, "google");
 
 $task3 = \Jenner\Http\Task::createGet("http://www.facebook.com");
 $async->attach($task3, "facebook");

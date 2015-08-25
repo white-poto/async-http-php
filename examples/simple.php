@@ -21,3 +21,6 @@ while(true){
     }
     usleep(100);
 }
+
+$result = $async->execute();
+print_r($result);

@@ -14,7 +14,10 @@ $async->attach($task);
 
 
 while(true){
-    var_dump($async->isDone());
-    echo PHP_EOL;
+    if($async->isDone()){
+        break;
+    }else{
+        echo "wait" . PHP_EOL;
+    }
     usleep(100);
 }

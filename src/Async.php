@@ -44,10 +44,11 @@ class Async
 
     /**
      * @param Task $task
+     * @param $task_name
      */
-    public function attach(Task $task)
+    public function attach(Task $task, $task_name)
     {
-        $this->tasks[] = $task;
+        $this->tasks[$task_name] = $task;
         curl_multi_add_handle($this->curl, $task->getTask());
     }
 
@@ -87,9 +88,10 @@ class Async
                 $content = curl_multi_getcontent($done['handle']);
 
                 $callback = null;
-                foreach($this->tasks as $task){
+                foreach($this->tasks as $task_name=>$task){
                     if($done['handle'] == $task->getTask() && method_exists($task, "handle")){
                         $callback = array($task, "handle");
+                        break;
                     }
                 }
 
@@ -97,7 +99,7 @@ class Async
                     $result = call_user_func($callback, $content, $info, $error);
                 }
 
-                $responses[] = compact('info', 'error', 'result');
+                $responses[$task_name] = compact('info', 'error', 'result');
 
                 // remove the curl handle that just completed
                 curl_multi_remove_handle($this->curl, $done['handle']);

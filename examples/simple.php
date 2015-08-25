@@ -9,14 +9,14 @@
 require dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
 $async = new \Jenner\Http\Async();
-$task = \Jenner\Http\Task::createGet("http://www.baidu.com", "baidu");
-$async->attach($task);
+$task = \Jenner\Http\Task::createGet("http://www.baidu.com");
+$async->attach($task, "baidu");
 
-$task2 = \Jenner\Http\Task::createGet("http://www.google.com", "google");
-$async->attach($task);
+$task2 = \Jenner\Http\Task::createGet("http://www.google.com");
+$async->attach($task, "google");
 
-$task3 = \Jenner\Http\Task::createGet("http://www.facebook.com", "facebook");
-$async->attach($task3);
+$task3 = \Jenner\Http\Task::createGet("http://www.facebook.com");
+$async->attach($task3, "facebook");
 
 
 $result = $async->execute();

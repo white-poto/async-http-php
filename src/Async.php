@@ -13,8 +13,6 @@ class Async
 {
     protected $curl;
 
-    protected $works;
-
     protected $callback;
 
     const METHOD_POST = "post";

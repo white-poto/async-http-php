@@ -155,7 +155,7 @@ class Task implements TaskInterface
         }
 
         $url = $this->url;
-        if ($this->method == self::METHOD_GET && !is_null($this->params)) {
+        if ($this->method == self::METHOD_GET && !is_null($this->params) && !empty($this->params)) {
             $url .= http_build_query($this->params);
         }
         if ($this->method == self::METHOD_POST && !is_null($this->params)) {

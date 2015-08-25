@@ -18,14 +18,6 @@ $async->attach($task);
 $task3 = \Jenner\Http\Task::createGet("http://www.facebook.com", "facebook");
 $async->attach($task3);
 
-while (true) {
-    if ($async->isDone()) {
-        break;
-    } else {
-        echo "wait" . PHP_EOL;
-    }
-    usleep(100);
-}
 
 $result = $async->execute();
 print_r($result);

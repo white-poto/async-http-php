@@ -68,6 +68,7 @@ class Async
     public function execute()
     {
         $responses = array();
+        print_r($this->tasks);
 
         do {
             while (($code = curl_multi_exec($this->curl, $active)) == CURLM_CALL_MULTI_PERFORM) ;

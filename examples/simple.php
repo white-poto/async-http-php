@@ -6,6 +6,7 @@
  * Time: 14:05
  */
 
+date_default_timezone_set("PRC");
 require dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
 $async = new \Jenner\Http\Async();

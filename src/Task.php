@@ -98,7 +98,6 @@ class Task implements TaskInterface
         $this->params = $params;
         $this->timeout = $timeout;
         $this->transfer_timeout = $transfer_timeout;
-        $this->ch = curl_init();
     }
 
     /**
@@ -143,7 +142,7 @@ class Task implements TaskInterface
      */
     public function getTask()
     {
-        $ch = $this->ch;
+        $ch = curl_init();
 
         if ($ch === false) {
             throw new \RuntimeException("init curl failed");

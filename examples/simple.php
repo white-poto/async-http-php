@@ -22,6 +22,6 @@ echo '3' . PHP_EOL;
 $task3 = \Jenner\Http\Task::createGet("http://www.facebook.com");
 $async->attach($task3, "facebook");
 
-
+echo "4" . PHP_EOL;
 $result = $async->execute();
 print_r($result);

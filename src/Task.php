@@ -98,6 +98,7 @@ class Task implements TaskInterface
         $this->params = $params;
         $this->timeout = $timeout;
         $this->transfer_timeout = $transfer_timeout;
+        $this->ch = curl_init();
     }
 
     /**
@@ -142,15 +143,15 @@ class Task implements TaskInterface
      */
     public function getTask()
     {
-        $ch = curl_init();
+        $this->ch;
 
-        if ($ch === false) {
+        if ($this->ch === false) {
             throw new \RuntimeException("init curl failed");
         }
 
         if (!is_null($this->proxy_ip) && !is_null($this->proxy_port)) {
             $proxy = "http://{$this->proxy_ip}:{$this->proxy_port}";
-            curl_setopt($ch, CURLOPT_PROXY, $proxy);
+            curl_setopt($this->ch, CURLOPT_PROXY, $proxy);
         }
 
         $url = $this->url;
@@ -158,24 +159,24 @@ class Task implements TaskInterface
             $url .= http_build_query($this->params);
         }
         if ($this->method == self::METHOD_POST && !is_null($this->params)) {
-            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($this->ch, CURLOPT_POST, 1);
             if (is_array($this->params) || is_object($this->params)) {
                 $post_field = http_build_query($this->params);
-                curl_setopt($ch, CURLOPT_POSTFIELDS, $post_field);
+                curl_setopt($this->ch, CURLOPT_POSTFIELDS, $post_field);
             } else {
-                curl_setopt($ch, CURLOPT_POSTFIELDS, $this->params);
+                curl_setopt($this->ch, CURLOPT_POSTFIELDS, $this->params);
             }
         }
 
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_NOSIGNAL, true);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $this->timeout);
-        curl_setopt($ch, CURLOPT_TIMEOUT, $this->transfer_timeout);
+        curl_setopt($this->ch, CURLOPT_URL, $url);
+        curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($this->ch, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($this->ch, CURLOPT_HEADER, 0);
+        curl_setopt($this->ch, CURLOPT_NOSIGNAL, true);
+        curl_setopt($this->ch, CURLOPT_CONNECTTIMEOUT, $this->timeout);
+        curl_setopt($this->ch, CURLOPT_TIMEOUT, $this->transfer_timeout);
 
-        return $ch;
+        return $this->ch;
     }
 
     /**

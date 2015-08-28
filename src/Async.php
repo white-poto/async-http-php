@@ -84,7 +84,6 @@ class Async
                 $error = curl_error($done['handle']);
                 $content = curl_multi_getcontent($done['handle']);
 
-                $callback = $task_name = null;
                 foreach($this->tasks as $task_name=>$task){
                     if($done['handle'] == $task){
                         break;

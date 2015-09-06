@@ -42,20 +42,17 @@ class Async
      */
     public function attach(Task $task, $task_name = null)
     {
-        if(is_null($task_name)){
+        if (is_null($task_name)) {
             $task_name = count($this->tasks);
         }
         $this->tasks[$task_name] = $task->getTask();
         curl_multi_add_handle($this->curl, $task->getTask());
     }
 
-    /**
-     * @return bool
-     */
-    public function isDone()
+    public function hasNext()
     {
         $code = curl_multi_exec($this->curl, $active);
-        if ($code != CURLM_CALL_MULTI_PERFORM && $code == CURLM_OK && $active == 0) {
+        if ($code != CURLM_CALL_MULTI_PERFORM && $code == CURLM_OK && $active > 0) {
             return true;
         }
 
@@ -84,8 +81,8 @@ class Async
                 $error = curl_error($done['handle']);
                 $content = curl_multi_getcontent($done['handle']);
 
-                foreach($this->tasks as $task_name=>$task){
-                    if($done['handle'] == $task){
+                foreach ($this->tasks as $task_name => $task) {
+                    if ($done['handle'] == $task) {
                         break;
                     }
                 }

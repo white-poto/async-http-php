@@ -45,7 +45,7 @@ class Async
         if (is_null($task_name)) {
             $task_name = count($this->tasks);
         }
-        $this->tasks[$task_name] = $task->getCurl();
+        $this->tasks[$task_name] = $task;
         curl_multi_add_handle($this->curl, $task->getCurl());
     }
 
@@ -81,10 +81,14 @@ class Async
                 $error = curl_error($done['handle']);
                 $content = curl_multi_getcontent($done['handle']);
 
+                $task_name = $task = null;
                 foreach ($this->tasks as $task_name => $task) {
-                    if ($done['handle'] == $task) {
+                    if ($done['handle'] == $task->getCurl()) {
                         break;
                     }
+                }
+                if($task->hasHandler()){
+                    call_user_func(array($task, "process"), $info, $error, $content);
                 }
 
                 $responses[$task_name] = compact('info', 'error', 'content');

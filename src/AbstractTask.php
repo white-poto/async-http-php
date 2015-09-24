@@ -46,7 +46,11 @@ abstract class AbstractTask
         return false;
     }
 
-    public function getHandler(){
+    /**
+     * @return callable get handler
+     */
+    public function getHandler()
+    {
         return $this->handler;
     }
 }

@@ -25,6 +25,7 @@ $async->attach($task3, "qq");
  */
 
 while(true){
+    // nonblock
     if(!$async->isDone()){
         echo "I am running" . PHP_EOL;
         sleep(1);
@@ -35,4 +36,11 @@ while(true){
     print_r($result);
     break;
 }
+
+/**
+ * or you just call execute. it will block the process until all tasks are done.
+ * $result = $async->execute();
+ * print_r($result);
+ */
+
 

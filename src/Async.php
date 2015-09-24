@@ -88,7 +88,6 @@ class Async
                     }
                 }
 
-                var_dump($task->hasHandler());
                 if($task->hasHandler()){
                     call_user_func($task->getHandler(), $info, $error, $content);
                 }

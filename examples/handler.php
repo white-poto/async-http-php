@@ -17,16 +17,18 @@ $task->registerHandler(function($info, $error, $content){
 $async->attach($task, "baidu");
 
 $task2 = \Jenner\Http\Task::createGet("http://www.sina.com");
-$async->attach($task2, "sina");
-$task->registerHandler(function($info, $error, $content){
+$task2->registerHandler(function($info, $error, $content){
     echo "get sina response. content length:" . strlen($content);
 });
+$async->attach($task2, "sina");
+
 
 $task3 = \Jenner\Http\Task::createGet("http://www.qq.com");
-$async->attach($task3, "qq");
-$task->registerHandler(function($info, $error, $content){
+$task3->registerHandler(function($info, $error, $content){
     echo "get qq response. content length:" . strlen($content);
 });
+$async->attach($task3, "qq");
+
 
 $result = $async->execute();
 echo count($result);

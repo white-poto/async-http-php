@@ -1,7 +1,14 @@
 # async-http-php
 An Async HTTP client based on curl_mulit* which is really simple and fast.
 
-If you want to use ssl or something else when you request a website, you can just realize a task class and implement the TaskInterface interface.
+Description
+-----------------
+If you want to use ssl or something else when you request a website, you can just realize a task class and extends the AbstractTask class.
+And you can register a handler use Task object, when the response is usable the Async class will call the handler to handle the response.
+It will also return the response which is not handled by the handler.
+
+The longer the requests execute, the more time it will save.
+
 
 example code:
 ```php
@@ -39,4 +46,24 @@ while(true){
  * print_r($result);
  */
 ```
+
+Performance tests
+---------------------
+[root@jenner async-http-php]# php tests/performance_async.php 
+------------------------------------------
+mark:[total diff]
+time:10.497985124588s
+memory_real:17152KB
+memory_emalloc:12509.796875KB
+memory_peak_real:18688KB
+memory_peak_emalloc:13611.03125KB
+[root@jenner async-http-php]# php tests/performance_sync.php  
+------------------------------------------
+mark:[total diff]
+time:30.681544065475s
+memory_real:1792KB
+memory_emalloc:1527.8828125KB
+memory_peak_real:2816KB
+memory_peak_emalloc:2084.484375KB
+
 

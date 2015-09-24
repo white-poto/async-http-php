@@ -21,6 +21,7 @@ $async->attach($task3, "qq");
 
 while(true){
     if(!$async->isDone()){
+	echo "I am waiting" . PHP_EOL;
         sleep(1);
         continue;
     }

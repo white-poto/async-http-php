@@ -141,7 +141,7 @@ class Task implements TaskInterface
      * get curl resource
      * @return resource curl
      */
-    public function getTask()
+    public function getCurl()
     {
         $this->ch;
 
@@ -177,21 +177,5 @@ class Task implements TaskInterface
         curl_setopt($this->ch, CURLOPT_TIMEOUT, $this->transfer_timeout);
 
         return $this->ch;
-    }
-
-    /**
-     * handle response
-     * @param $content
-     * @param $info
-     * @param $error
-     * @return mixed
-     */
-    public function handle($content, $info, $error)
-    {
-        if($info['http_code'] != 200){
-            throw new \RuntimeException("the response http code is not 200");
-        }
-
-        return $content;
     }
 }

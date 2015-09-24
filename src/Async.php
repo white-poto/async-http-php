@@ -45,8 +45,8 @@ class Async
         if (is_null($task_name)) {
             $task_name = count($this->tasks);
         }
-        $this->tasks[$task_name] = $task->getTask();
-        curl_multi_add_handle($this->curl, $task->getTask());
+        $this->tasks[$task_name] = $task->getCurl();
+        curl_multi_add_handle($this->curl, $task->getCurl());
     }
 
     public function isDone()

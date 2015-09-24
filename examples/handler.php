@@ -12,20 +12,20 @@ require dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_
 $async = new \Jenner\Http\Async();
 $task = \Jenner\Http\Task::createGet("http://www.baidu.com");
 $task->registerHandler(function($info, $error, $content){
-    echo "get baidu response. content length:" . strlen($content);
+    echo "get baidu response. content length:" . strlen($content) . PHP_EOL;
 });
 $async->attach($task, "baidu");
 
 $task2 = \Jenner\Http\Task::createGet("http://www.sina.com");
 $task2->registerHandler(function($info, $error, $content){
-    echo "get sina response. content length:" . strlen($content);
+    echo "get sina response. content length:" . strlen($content) . PHP_EOL;
 });
 $async->attach($task2, "sina");
 
 
 $task3 = \Jenner\Http\Task::createGet("http://www.qq.com");
 $task3->registerHandler(function($info, $error, $content){
-    echo "get qq response. content length:" . strlen($content);
+    echo "get qq response. content length:" . strlen($content) . PHP_EOL;
 });
 $async->attach($task3, "qq");
 

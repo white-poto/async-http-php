@@ -11,7 +11,7 @@ require dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_
 
 $timer = new \Jenner\Timer(\Jenner\Timer::UNIT_KB);
 $timer->mark("start");
-for($i=0; $i<20; $i++){
+for ($i = 0; $i < 20; $i++) {
     $task = \Jenner\Http\Task::createGet("http://www.baidu.com?" . $i);
     $result = curl_exec($task->getCurl());
 

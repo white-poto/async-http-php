@@ -12,7 +12,7 @@ require dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_
 $timer = new \Jenner\Timer(\Jenner\Timer::UNIT_KB);
 $timer->mark("start");
 $async = new \Jenner\Http\Async();
-for($i=0; $i<20; $i++){
+for ($i = 0; $i < 20; $i++) {
     $task = \Jenner\Http\Task::createGet("http://www.baidu.com");
     $async->attach($task, "baidu" . $i);
 
@@ -23,9 +23,8 @@ for($i=0; $i<20; $i++){
     $async->attach($task3, "qq" . $i);
 }
 
-
-
 $result = $async->execute();
 
 $timer->mark("end");
+
 $timer->printDiffReport();

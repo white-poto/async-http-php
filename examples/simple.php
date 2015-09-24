@@ -24,9 +24,9 @@ $async->attach($task3, "qq");
  * eg. query data from mysql or redis.
  */
 
-while(true){
+while (true) {
     // nonblock
-    if(!$async->isDone()){
+    if (!$async->isDone()) {
         echo "I am running" . PHP_EOL;
         sleep(1);
         continue;

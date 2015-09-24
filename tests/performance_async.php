@@ -12,14 +12,18 @@ require dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_
 $timer = new \Jenner\Timer(\Jenner\Timer::UNIT_KB);
 $timer->mark("start");
 $async = new \Jenner\Http\Async();
-$task = \Jenner\Http\Task::createGet("http://www.baidu.com");
-$async->attach($task, "baidu");
+for($i=0; $i<20; $i++){
+    $task = \Jenner\Http\Task::createGet("http://www.baidu.com");
+    $async->attach($task, "baidu" . $i);
 
-$task2 = \Jenner\Http\Task::createGet("http://www.sina.com");
-$async->attach($task2, "sina");
+    $task2 = \Jenner\Http\Task::createGet("http://www.sina.com");
+    $async->attach($task2, "sina" . $i);
 
-$task3 = \Jenner\Http\Task::createGet("http://www.qq.com");
-$async->attach($task3, "qq");
+    $task3 = \Jenner\Http\Task::createGet("http://www.qq.com");
+    $async->attach($task3, "qq" . $i);
+}
+
+
 
 $result = $async->execute();
 

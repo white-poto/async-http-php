@@ -11,14 +11,17 @@ require dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_
 
 $timer = new \Jenner\Timer(\Jenner\Timer::UNIT_KB);
 $timer->mark("start");
-$task = \Jenner\Http\Task::createGet("http://www.baidu.com");
-$result = curl_exec($task->getCurl());
+for($i=0; $i<20; $i++){
+    $task = \Jenner\Http\Task::createGet("http://www.baidu.com?" . $i);
+    $result = curl_exec($task->getCurl());
 
-$task2 = \Jenner\Http\Task::createGet("http://www.sina.com");
-$result2 = curl_exec($task2->getCurl());
+    $task2 = \Jenner\Http\Task::createGet("http://www.sina.com?" . $i);
+    $result2 = curl_exec($task2->getCurl());
 
-$task3 = \Jenner\Http\Task::createGet("http://www.qq.com");
-$result3 = curl_exec($task3->getCurl());
+    $task3 = \Jenner\Http\Task::createGet("http://www.qq.com?" . $i);
+    $result3 = curl_exec($task3->getCurl());
+}
+
 $timer->mark("end");
 
 $timer->printDiffReport();

@@ -49,6 +49,7 @@ while(true){
 
 Performance tests
 ---------------------
+```shell
 [root@jenner async-http-php]# php tests/performance_async.php 
 ------------------------------------------
 mark:[total diff]
@@ -65,5 +66,5 @@ memory_real:1792KB
 memory_emalloc:1527.8828125KB
 memory_peak_real:2816KB
 memory_peak_emalloc:2084.484375KB
-
+```
 

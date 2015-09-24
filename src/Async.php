@@ -49,10 +49,10 @@ class Async
         curl_multi_add_handle($this->curl, $task->getTask());
     }
 
-    public function hasNext()
+    public function isDone()
     {
         $code = curl_multi_exec($this->curl, $active);
-        if ($code != CURLM_CALL_MULTI_PERFORM && $code == CURLM_OK && $active > 0) {
+        if ($code != CURLM_CALL_MULTI_PERFORM && $code == CURLM_OK && $active == 0) {
             return true;
         }
 

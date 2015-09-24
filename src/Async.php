@@ -52,9 +52,6 @@ class Async
     public function isDone()
     {
         $code = curl_multi_exec($this->curl, $active);
-        var_dump($code != CURLM_CALL_MULTI_PERFORM);
-        var_dump($code != CURLM_OK);
-        var_dump($active);
         if ($code != CURLM_CALL_MULTI_PERFORM && $code == CURLM_OK && $active == 0) {
             return true;
         }

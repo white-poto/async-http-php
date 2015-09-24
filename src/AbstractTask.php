@@ -31,6 +31,7 @@ abstract class AbstractTask
         if (!is_callable($handler)) {
             throw new \RuntimeException("param callback is not callable");
         }
+        $this->handler = $handler;
     }
 
     /**

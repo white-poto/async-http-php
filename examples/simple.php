@@ -19,13 +19,20 @@ $async->attach($task2, "sina");
 $task3 = \Jenner\Http\Task::createGet("http://www.qq.com");
 $async->attach($task3, "qq");
 
+/**
+ * you can do something here before receive the http responses
+ * eg. query data from mysql or redis.
+ */
+
 while(true){
     if(!$async->isDone()){
+        echo "I am running" . PHP_EOL;
         sleep(1);
         continue;
     }
 
     $result = $async->execute();
     print_r($result);
+    break;
 }
 

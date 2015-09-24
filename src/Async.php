@@ -90,7 +90,7 @@ class Async
 
                 var_dump($task->hasHandler());
                 if($task->hasHandler()){
-                    call_user_func(array($task, "process"), $info, $error, $content);
+                    call_user_func($task->getHandler(), $info, $error, $content);
                 }
 
                 $responses[$task_name] = compact('info', 'error', 'content');

@@ -45,4 +45,8 @@ abstract class AbstractTask
 
         return false;
     }
+
+    public function getHandler(){
+        return $this->handler;
+    }
 }

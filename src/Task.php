@@ -98,11 +98,6 @@ class Task extends AbstractTask
         $this->params = $params;
         $this->timeout = $timeout;
         $this->transfer_timeout = $transfer_timeout;
-        $this->ch = curl_init();
-
-        if ($this->ch === false) {
-            throw new \RuntimeException("init curl failed");
-        }
     }
 
     /**
@@ -147,6 +142,12 @@ class Task extends AbstractTask
      */
     public function getCurl()
     {
+        $this->ch = curl_init();
+
+        if ($this->ch === false) {
+            throw new \RuntimeException("init curl failed");
+        }
+
         if (!is_null($this->proxy_ip) && !is_null($this->proxy_port)) {
             $proxy = "http://{$this->proxy_ip}:{$this->proxy_port}";
             curl_setopt($this->ch, CURLOPT_PROXY, $proxy);

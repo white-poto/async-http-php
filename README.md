@@ -4,8 +4,8 @@ An Async HTTP client based on curl_mulit* which is really simple and fast.
 Description
 -----------------
 - If you want to use ssl or something else when you request a website, you can just realize a task class and extends the AbstractTask class.
-- You can register a handler use Task object, when the response is usable the Async class will call the handler to handle the response.
-- It will also return the response which is not handled by the handler.
+- You can register a handler using Task object, when the response is usable the Async class will call the handler to handle the response.
+- It will also return the response if it is handled by the handler or not.
 - The longer the requests execute, the more time it will save.
 
 example code:

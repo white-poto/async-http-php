@@ -49,6 +49,15 @@ class Async
         curl_multi_add_handle($this->curl, $task->getCurl());
     }
 
+    /**
+     * while you need to call isDone to check all tasks,
+     * you should call start first.
+     */
+    public function start()
+    {
+        curl_multi_exec($this->curl, $active);
+    }
+
     public function isDone()
     {
         $code = curl_multi_exec($this->curl, $active);
@@ -101,7 +110,7 @@ class Async
 
             // Block for data in / output; error handling is done by curl_multi_exec
             if ($active > 0) {
-                curl_multi_select($this->curl, 0.5);
+                curl_multi_select($this->curl, 0.05);
             }
 
         } while ($active);

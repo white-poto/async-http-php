@@ -24,6 +24,8 @@ $async->attach($task3, "qq");
  * you can do something here before receive the http responses
  * eg. query data from mysql or redis.
  */
+ 
+ $async-start();
 
 while(true){
     // nonblock

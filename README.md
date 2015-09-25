@@ -48,21 +48,21 @@ while(true){
 Performance tests
 ---------------------
 ```shell
-[root@jenner async-http-php]# php tests/performance_async.php 
+[root@huyanping async-http-php]# php tests/performance_sync.php  
 ------------------------------------------
 mark:[total diff]
-time:10.497985124588s
-memory_real:17152KB
-memory_emalloc:12509.796875KB
-memory_peak_real:18688KB
-memory_peak_emalloc:13611.03125KB
-[root@jenner async-http-php]# php tests/performance_sync.php  
+time:55.121547937393s
+memory_real:1536KB
+memory_emalloc:1300.5859375KB
+memory_peak_real:2304KB
+memory_peak_emalloc:1898.640625KB
+[root@huyanping async-http-php]# php tests/performance_async.php 
 ------------------------------------------
 mark:[total diff]
-time:30.681544065475s
-memory_real:1792KB
-memory_emalloc:1527.8828125KB
-memory_peak_real:2816KB
-memory_peak_emalloc:2084.484375KB
+time:4.6412570476532s
+memory_real:256KB
+memory_emalloc:187.7109375KB
+memory_peak_real:13312KB
+memory_peak_emalloc:10387.8671875KB
 ```
 

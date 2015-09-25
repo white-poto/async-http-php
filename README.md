@@ -25,7 +25,7 @@ $async->attach($task3, "qq");
  * eg. query data from mysql or redis.
  */
  
- $async-start();
+$async-start();
 
 while(true){
     // nonblock

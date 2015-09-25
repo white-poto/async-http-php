@@ -29,6 +29,5 @@ $task3->registerHandler(function ($info, $error, $content) {
 });
 $async->attach($task3, "qq");
 
-
 $result = $async->execute();
 echo count($result);

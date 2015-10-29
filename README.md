@@ -1,5 +1,7 @@
 # async-http-php
-An Async HTTP client based on curl_mulit* which is really simple and fast.
+An Async HTTP client based on curl_mulit* which is really simple and fast.  
+This project is a teaching experiment and I don't suggest to use it in a production environment, even though it is stable.
+You can try to use [guzzle](http://docs.guzzlephp.org/en/latest/quickstart.html#async-requests).
 
 Description
 -----------------

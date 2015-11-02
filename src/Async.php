@@ -9,6 +9,8 @@
 namespace Jenner\Http;
 
 
+use React\Promise\Deferred;
+
 class Async
 {
     /**
@@ -21,6 +23,11 @@ class Async
      * @var Task[] array
      */
     protected $tasks = array();
+
+    /**
+     * @var Deferred[]
+     */
+    protected $deferred = array();
 
     /**
      * @param null $callback
@@ -41,7 +48,8 @@ class Async
 
     /**
      * @param Task $task
-     * @param $task_name
+     * @param null $task_name
+     * @return \React\Promise\Promise|\React\Promise\PromiseInterface
      */
     public function attach(Task $task, $task_name = null)
     {
@@ -50,6 +58,10 @@ class Async
         }
         $this->tasks[$task_name] = $task;
         curl_multi_add_handle($this->curl, $task->getCurl());
+        $deferred = new Deferred();
+        $this->deferred[$task_name] = $deferred;
+
+        return $deferred->promise();
     }
 
     /**
@@ -61,6 +73,9 @@ class Async
         curl_multi_exec($this->curl, $active);
     }
 
+    /**
+     * @return bool
+     */
     public function isDone()
     {
         $code = curl_multi_exec($this->curl, $active);
@@ -74,7 +89,7 @@ class Async
     /**
      * @return array
      */
-    public function execute()
+    public function execute($return = false)
     {
         $responses = array();
 
@@ -91,7 +106,9 @@ class Async
                 // get the info and content returned on the request
                 $info = curl_getinfo($done['handle']);
                 $error = curl_error($done['handle']);
+                $errno = curl_errno($done['handle']);
                 $content = curl_multi_getcontent($done['handle']);
+
 
                 $task_name = $task = null;
                 foreach ($this->tasks as $task_name => $task) {
@@ -99,12 +116,23 @@ class Async
                         break;
                     }
                 }
+                $deferred = $this->deferred[$task_name];
+                $result = compact('info', 'error', 'content');
 
-                if ($task->hasHandler()) {
-                    call_user_func($task->getHandler(), $info, $error, $content);
+                if ($errno != 0) {
+                    if ($return) {
+                        throw new \RuntimeException("curl error. errno:" . $errno . '. error:' . $error);
+                    } else {
+                        $deferred->reject($result);
+                        continue;
+                    }
                 }
 
-                $responses[$task_name] = compact('info', 'error', 'content');
+                $deferred->resolve($result);
+
+                if ($return) {
+                    $responses[$task_name] = compact('info', 'error', 'content');
+                }
 
                 // remove the curl handle that just completed
                 curl_multi_remove_handle($this->curl, $done['handle']);
@@ -120,7 +148,9 @@ class Async
 
         curl_multi_close($this->curl);
 
-        return $responses;
+        if ($return) {
+            return $responses;
+        }
     }
 
 }

@@ -9,7 +9,7 @@
 namespace Jenner\Http;
 
 
-class Task extends AbstractTask
+class Task implements TaskInterface
 {
     /**
      * request method

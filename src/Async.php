@@ -47,9 +47,11 @@ class Async
     }
 
     /**
+     * add new task and return a promise
+     *
      * @param Task $task
      * @param null $task_name
-     * @return \React\Promise\Promise|\React\Promise\PromiseInterface
+     * @return \React\Promise\PromiseInterface
      */
     public function attach(Task $task, $task_name = null)
     {

@@ -119,7 +119,7 @@ class Async
                     }
                 }
                 $deferred = $this->deferred[$task_name];
-                $result = compact('info', 'error', 'content');
+                $result = compact('info', 'errno', 'error', 'content');
 
                 if ($errno != 0) {
                     if ($return) {

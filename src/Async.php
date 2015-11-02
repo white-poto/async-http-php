@@ -17,6 +17,9 @@ class Async
      */
     protected $curl;
 
+    /**
+     * @var Task[] array
+     */
     protected $tasks = array();
 
     /**

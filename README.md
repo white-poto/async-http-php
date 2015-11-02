@@ -48,6 +48,23 @@ while(true){
  * print_r($result);
  */
 ```
+use promise:  
+```php
+$async = new \Jenner\Http\Async();
+$task = \Jenner\Http\Task::createGet("http://www.baidu.com");
+$promise = $async->attach($task, "baidu");
+
+$promise->then(
+    function ($data) {
+        echo 'success:' . var_export($data, true) . PHP_EOL;
+    },
+    function ($data) {
+        echo 'error:' . var_export($data, true) . PHP_EOL;
+    }
+);
+
+$async->execute();
+```
 
 Performance tests
 ---------------------

@@ -17,8 +17,7 @@
   "type": "package",
   "require": {
     "php": ">=5.3.0",
-    "ext-mysqli": "*",
-    "react/promise": "v2.2.1"
+    "ext-mysqli": "*"
   },
   "require-dev": {
     "jenner/timer": "v0.1"

@@ -59,7 +59,7 @@ class Async
             $task_name = count($this->tasks);
         }
         $this->tasks[$task_name] = $task;
-        curl_multi_add_handle($this->curl, $task->getCurl());
+        curl_multi_add_handle($this->curl, $task->createCurl());
         $deferred = new Deferred();
         $this->deferred[$task_name] = $deferred;
 

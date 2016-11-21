@@ -12,8 +12,14 @@ namespace Jenner\Http;
 interface TaskInterface
 {
     /**
-     * get curl resource
+     * get created curl resource
      * @return resource curl
      */
     public function getCurl();
+
+    /**
+     * create curl resource
+     * @return mixed
+     */
+    public function createCurl();
 }

@@ -142,6 +142,11 @@ class Task implements TaskInterface
      */
     public function getCurl()
     {
+        return $this->ch;
+    }
+
+    public function createCurl()
+    {
         $this->ch = curl_init();
 
         if ($this->ch === false) {
